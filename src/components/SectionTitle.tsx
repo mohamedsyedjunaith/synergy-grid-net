@@ -13,8 +13,8 @@ const SectionTitle = ({ icon: Icon, title, subtitle }: SectionTitleProps) => {
       className="flex items-center gap-4 mb-8"
       initial={{ opacity: 0, x: -20 }}
       whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5 }}
+      viewport={{ once: false, amount: 0.3 }} // repeat animation whenever 30% visible
+      transition={{ duration: 5, delay: 0.8, ease: 'easeInOut' , repeat: Infinity }}
     >
       {/* Icon container */}
       <motion.div
@@ -22,12 +22,12 @@ const SectionTitle = ({ icon: Icon, title, subtitle }: SectionTitleProps) => {
         whileHover={{ scale: 1.05 }}
       >
         <Icon className="w-7 h-7 text-primary" />
-        
+
         {/* Pulse effect */}
         <motion.div
           className="absolute inset-0 rounded-lg border border-primary/50"
           animate={{ scale: [1, 1.1, 1], opacity: [0.5, 0, 0.5] }}
-          transition={{ duration: 2, repeat: Infinity }}
+          transition={{ duration: 10, repeat: Infinity }}
         />
       </motion.div>
 

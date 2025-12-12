@@ -6,7 +6,7 @@ const skillCategories = [
   {
     icon: Code,
     title: 'Programming',
-    skills: ['C', 'Java', 'JavaScript', 'Python'],
+    skills: ['C','C++', 'Java', 'JavaScript', 'Python'],
     color: 'cyan',
   },
   {
@@ -43,6 +43,14 @@ const colorStyles = {
     glow: 'shadow-[0_0_15px_hsl(var(--primary)/0.3)]',
     bar: 'bg-primary',
   },
+    red: {
+    bg: 'bg-energy-red/10',
+    border: 'border-energy-red/30',
+    text: 'text-energy-red',
+    glow: 'shadow-[0_0_15px_hsl(var(--energy-red)/0.3)]',
+    bar: 'bg-energy-red',
+  },
+
   purple: {
     bg: 'bg-accent/10',
     border: 'border-accent/30',
@@ -78,7 +86,7 @@ const SkillsSection = () => {
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
         {skillCategories.map((category, categoryIndex) => {
           const Icon = category.icon;
-          const styles = colorStyles[category.color as keyof typeof colorStyles];
+          const styles = colorStyles[category.color];
 
           return (
             <motion.div
@@ -103,28 +111,24 @@ const SkillsSection = () => {
               {/* Skills */}
               <div className="space-y-3">
                 {category.skills.map((skill, skillIndex) => {
-                  // Generate random-ish but consistent energy levels
-                  const energyLevel = 70 + ((skillIndex * 17 + categoryIndex * 13) % 30);
-
                   return (
                     <motion.div
                       key={skill}
-                      className="relative"
                       initial={{ opacity: 0, x: -20 }}
                       whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
                       transition={{ delay: 0.3 + skillIndex * 0.1 }}
+                      viewport={{ once: true }}
                     >
-                      {/* Skill capsule */}
                       <div className="flex items-center gap-3">
-                        {/* Energy indicator dot */}
+
+                        {/* Dot */}
                         <motion.div
                           className={`w-2 h-2 rounded-full ${styles.bar}`}
                           animate={{ opacity: [0.5, 1, 0.5] }}
-                          transition={{ 
-                            duration: 1.5, 
-                            repeat: Infinity, 
-                            delay: skillIndex * 0.2 
+                          transition={{
+                            duration: 1.5,
+                            repeat: Infinity,
+                            delay: skillIndex * 0.2,
                           }}
                         />
 
@@ -133,28 +137,60 @@ const SkillsSection = () => {
                           {skill}
                         </span>
 
-                        {/* Energy level bar */}
-                        <div className="w-20 h-1.5 bg-muted rounded-full overflow-hidden">
+                        {/* Beam + Runner */}
+                        <div className="relative w-28 h-2 bg-muted rounded-full overflow-hidden">
+
+                          {/* Beam */}
                           <motion.div
-                            className={`h-full ${styles.bar} rounded-full`}
-                            initial={{ width: 0 }}
-                            whileInView={{ width: `${energyLevel}%` }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.8, delay: 0.5 + skillIndex * 0.1 }}
+                            className={`absolute top-0 h-full w-12 ${styles.bar} rounded-full`}
+                            initial={{ left: '-50px' }}
+                            animate={{ left: ['-50px', '130px'] }}
+                            transition={{
+                              duration: 2,
+                              repeat: Infinity,
+                              ease: 'linear',
+                              delay: skillIndex * 0.2,
+                            }}
                           />
+
+                          {/* Runner */}
+                          <motion.div
+                            className="absolute -top-2 flex gap-0.5"
+                            initial={{ left: '-50px' }}
+                            animate={{ left: ['-50px', '130px'] }}
+                            transition={{
+                              duration: 2,
+                              repeat: Infinity,
+                              ease: 'linear',
+                              delay: skillIndex * 0.2,
+                            }}
+                          >
+                            <motion.div
+                              className={`w-1.5 h-1.5 rounded-full ${styles.bar}`}
+                              animate={{ y: [0, -3, 0] }}
+                              transition={{ duration: 0.4, repeat: Infinity }}
+                            />
+                            <motion.div
+                              className={`w-1.5 h-1.5 rounded-full ${styles.bar}`}
+                              animate={{ y: [-1, -4, -1] }}
+                              transition={{ duration: 0.4, repeat: Infinity, delay: 0.1 }}
+                            />
+                            <motion.div
+                              className={`w-1.5 h-1.5 rounded-full ${styles.bar}`}
+                              animate={{ y: [0, -3, 0] }}
+                              transition={{ duration: 0.4, repeat: Infinity, delay: 0.2 }}
+                            />
+                          </motion.div>
+
                         </div>
 
-                        {/* Energy percentage */}
-                        <span className={`font-mono text-xs ${styles.text} w-10 text-right`}>
-                          {energyLevel}%
-                        </span>
                       </div>
                     </motion.div>
                   );
                 })}
               </div>
 
-              {/* Status footer */}
+              {/* Footer */}
               <div className="flex items-center justify-between mt-6 pt-4 border-t border-border/50">
                 <span className="font-mono text-xs text-muted-foreground">
                   TRANSFORMER {categoryIndex + 1}
@@ -171,7 +207,7 @@ const SkillsSection = () => {
                 </div>
               </div>
 
-              {/* Corner accent */}
+              {/* Corner Accent */}
               <div className={`absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 ${styles.border} rounded-tr-lg`} />
             </motion.div>
           );

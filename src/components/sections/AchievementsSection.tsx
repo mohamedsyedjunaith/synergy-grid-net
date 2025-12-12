@@ -50,16 +50,16 @@ const lineColorMap = {
 const AchievementsSection = () => {
   return (
     <section id="achievements" className="min-h-screen py-20 px-4">
-      <SectionTitle 
-        icon={Trophy} 
-        title="ENERGY TIMELINE" 
-        subtitle="// Achievement Milestones" 
+      <SectionTitle
+        icon={Trophy}
+        title="ENERGY TIMELINE"
+        subtitle="// Achievement Milestones"
       />
 
       <div className="relative max-w-3xl mx-auto">
         {/* Central power line */}
         <div className="absolute left-8 lg:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-primary/30 to-transparent lg:-translate-x-1/2" />
-        
+
         {/* Energy pulse on the line */}
         <motion.div
           className="absolute left-8 lg:left-1/2 w-2 h-20 bg-gradient-to-b from-transparent via-primary to-transparent rounded-full lg:-translate-x-1/2"
@@ -77,9 +77,8 @@ const AchievementsSection = () => {
             return (
               <motion.div
                 key={achievement.title}
-                className={`relative flex items-center ${
-                  isLeft ? 'lg:flex-row' : 'lg:flex-row-reverse'
-                } flex-row`}
+                className={`relative flex items-center ${isLeft ? 'lg:flex-row' : 'lg:flex-row-reverse'
+                  } flex-row`}
                 initial={{ opacity: 0, x: isLeft ? -50 : 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: '-50px' }}
@@ -95,9 +94,10 @@ const AchievementsSection = () => {
 
                 {/* Connection line to card */}
                 <motion.div
-                  className={`absolute left-10 lg:left-1/2 h-px w-8 lg:w-20 bg-gradient-to-r ${lineColorMap[achievement.color as keyof typeof lineColorMap]} ${
-                    isLeft ? 'lg:-translate-x-full lg:left-[calc(50%-8px)]' : 'lg:translate-x-0 lg:left-[calc(50%+8px)]'
-                  }`}
+                  className={`absolute left-10 h-px w-8 lg:w-20 bg-gradient-to-r ${lineColorMap[achievement.color as keyof typeof lineColorMap]} ${isLeft
+                      ? 'origin-left lg:left-auto lg:right-[calc(50%+8px)] lg:origin-right'
+                      : 'origin-left lg:left-[calc(50%+8px)]'
+                    }`}
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
                   viewport={{ once: true }}
@@ -106,29 +106,28 @@ const AchievementsSection = () => {
 
                 {/* Card */}
                 <motion.div
-                  className={`ml-20 lg:ml-0 lg:w-[calc(50%-60px)] ${
-                    isLeft ? 'lg:mr-auto lg:pr-8' : 'lg:ml-auto lg:pl-8'
-                  }`}
+                  className={`ml-20 lg:ml-0 lg:w-[calc(50%-60px)] ${isLeft ? 'lg:mr-auto lg:pr-8' : 'lg:ml-auto lg:pl-8'
+                    }`}
                   whileHover={{ scale: 1.02 }}
                 >
                   <div className={`relative p-6 rounded-lg bg-card/80 backdrop-blur-sm border ${colorMap[achievement.color as keyof typeof colorMap].split(' ')[0]}/30 hover:${colorMap[achievement.color as keyof typeof colorMap].split(' ')[0]}/60 transition-all duration-300`}>
                     {/* Corner accents */}
                     <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-primary/40 rounded-tl" />
                     <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-primary/40 rounded-tr" />
-                    
+
                     <div className="flex items-start gap-4">
                       <div className={`p-3 rounded-lg ${colorMap[achievement.color as keyof typeof colorMap]}`}>
                         <Icon className="w-6 h-6" />
                       </div>
-                      
+
                       <div className="flex-1">
                         <h3 className="font-orbitron text-lg font-semibold text-foreground mb-1">
                           {achievement.title}
                         </h3>
-                        <p className="text-sm text-muted-foreground mb-2">
+                        <p className="text-m text-muted-foreground mb-2">
                           {achievement.subtitle}
                         </p>
-                        <p className={`font-mono text-sm ${colorMap[achievement.color as keyof typeof colorMap].split(' ')[2]}`}>
+                        <p className={`font-mono text-base ${colorMap[achievement.color as keyof typeof colorMap].split(' ')[2]}`}>
                           {achievement.description}
                         </p>
                       </div>

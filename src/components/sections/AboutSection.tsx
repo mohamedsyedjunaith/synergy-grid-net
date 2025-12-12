@@ -15,7 +15,7 @@ const AboutSection = () => {
     <section id="about" className="min-h-screen py-20 px-4">
       <SectionTitle 
         icon={User} 
-        title="CONTROL NODE" 
+        title="ABOUT ME" 
         subtitle="// System Administrator Profile" 
       />
 
@@ -148,6 +148,22 @@ const AboutSection = () => {
                   </motion.div>
                 );
               })}
+            </div>
+
+            {/* Download Resume Button */}
+            <div className="pt-6 flex justify-center">
+              <motion.a
+                href="/resume.pdf" // place your resume in the public folder
+                download
+                className="px-6 py-3 rounded-lg bg-primary text-background font-bold border border-primary/50 glow-cyan hover:glow-cyan-intense transition-all"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 1 }}
+                whileHover={{ scale: 1.05, boxShadow: '0 0 15px hsl(var(--primary)/0.6)' }}
+              >
+                Download Resume
+              </motion.a>
             </div>
           </div>
         </EnergyCard>

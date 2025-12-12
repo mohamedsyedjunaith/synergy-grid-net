@@ -7,12 +7,29 @@ export function useIsMobile() {
 
   React.useEffect(() => {
     const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`);
-    const onChange = () => {
-      setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
+
+    const onChange = (e: MediaQueryListEvent) => {
+      setIsMobile(e.matches);
     };
-    mql.addEventListener("change", onChange);
-    setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
-    return () => mql.removeEventListener("change", onChange);
+
+    // Initial value
+    setIsMobile(mql.matches);
+
+    // Listener
+    if (mql.addEventListener) {
+      mql.addEventListener("change", onChange);
+    } else {
+      // Safari fallback
+      mql.addListener(onChange);
+    }
+
+    return () => {
+      if (mql.removeEventListener) {
+        mql.removeEventListener("change", onChange);
+      } else {
+        mql.removeListener(onChange);
+      }
+    };
   }, []);
 
   return !!isMobile;
