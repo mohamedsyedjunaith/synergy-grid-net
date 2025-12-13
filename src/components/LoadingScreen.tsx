@@ -9,15 +9,14 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
   const [progress, setProgress] = useState(0);
   const [statusText, setStatusText] = useState('Initializing...');
 
-const statusMessages = [
-  'Putting on a professional smile...',
-  'Organizing the invisible sections...',
-  'Brewing coffee for optimal efficiency...',
-  'Sharpening virtual pencils...',
-  'Polishing my professional skills...',
-  'All systems go. Get ready!...',
-];
-
+  const statusMessages = [
+    'Initializing Grid Network...',
+    'Calibrating Power Nodes...',
+    'Establishing Energy Links...',
+    'Synchronizing Data Streams...',
+    'Loading System Modules...',
+    'Grid Calibration Complete',
+  ];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -117,8 +116,7 @@ const statusMessages = [
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
         >
-          Portfolio of Syed Junaith <br />
-          <center> Welcome!</center>
+          SMART GRID NETWORK
         </motion.h1>
 
         {/* Status text */}
